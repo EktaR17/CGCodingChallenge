@@ -27,7 +27,7 @@ fun UserListScreen(
     val state by vm.uiState.collectAsState()
 
     Scaffold(
-        topBar = { AppTopBar(title = "Users List") }
+        topBar = { AppTopBar(title = "User List") }
     ) { paddingValues ->
 
         when (val uiState = state) {
