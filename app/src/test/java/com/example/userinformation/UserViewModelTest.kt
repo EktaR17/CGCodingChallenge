@@ -87,7 +87,7 @@ class UserViewModelTest {
         // Assert
         val state = viewModel.uiState.value
         assertTrue(state is UsersUiState.Error)
-        assertEquals("No internet", (state as UsersUiState.Error).message)
+        assertEquals("No internet available", (state as UsersUiState.Error).message)
     }
 
     @Test

@@ -9,6 +9,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.layout.ContentScale
@@ -69,27 +70,62 @@ fun UserListScreen(
 }
 
 @Composable
-fun UserCard(user: User, onUserClick: (User) -> Unit) {
+fun UserCard(
+    user: User,
+    onUserClick: (User) -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp)
+            .padding(horizontal = 6.dp, vertical = 6.dp)
             .clickable { onUserClick(user) },
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+        shape = MaterialTheme.shapes.medium,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
     ) {
-        Row(modifier = Modifier.padding(12.dp)) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            // Profile Image
             Image(
-                painter = rememberAsyncImagePainter(user.photo),
+                painter = rememberAsyncImagePainter(model = user.photo),
                 contentDescription = user.name,
-                modifier = Modifier.size(60.dp).padding(end = 12.dp),
-                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .size(64.dp)
+                    .clip(MaterialTheme.shapes.medium)
+                    .padding(end = 12.dp),
+                contentScale = ContentScale.Crop
             )
 
-            Column(modifier = Modifier.fillMaxWidth().align(Alignment.CenterVertically)) {
-                Text(text = user.name, fontWeight = FontWeight.Bold)
-                Text(text = user.email)
-                Text(text = user.company)
+            // User Details
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+            ) {
+                Text(
+                    text = user.name,
+                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Text(
+                    text = user.email,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = user.company,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.primary
+                )
             }
+
         }
     }
 }

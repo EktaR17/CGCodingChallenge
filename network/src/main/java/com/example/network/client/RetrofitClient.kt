@@ -11,7 +11,7 @@ object RetrofitClient {
 
     val apiService: RetrofitInterfaces by lazy {
         Retrofit.Builder()
-            .baseUrl("https://fake-json-api.mock.beeceptor.com/users/") // notice the slash at the end
+            .baseUrl("https://fake-json-api.mock.beeceptor.com/") // notice the slash at the end
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
